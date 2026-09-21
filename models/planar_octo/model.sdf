@@ -86,7 +86,7 @@
     <plugin filename="gz-sim-multicopter-motor-model-system" name="gz::sim::systems::MulticopterMotorModel">
       <jointName>rotor_0_joint</jointName><linkName>rotor_0</linkName>
       <turningDirection>cw</turningDirection>
-      <timeConstantUp>0.15</timeConstantUp><timeConstantDown>0.15</timeConstantDown>
+      <timeConstantUp>0.03</timeConstantUp><timeConstantDown>0.03</timeConstantDown>
       <rotorDragCoefficient>8.06428e-05</rotorDragCoefficient><rollingMomentCoefficient>1e-06</rollingMomentCoefficient>
       <maxRotVelocity>1774</maxRotVelocity><motorConstant>1.2138e-06</motorConstant><momentConstant>0.00857637</momentConstant>
       <commandSubTopic>command/motor_speed</commandSubTopic><actuator_number>0</actuator_number>
@@ -95,7 +95,7 @@
     <plugin filename="gz-sim-multicopter-motor-model-system" name="gz::sim::systems::MulticopterMotorModel">
       <jointName>rotor_1_joint</jointName><linkName>rotor_1</linkName>
       <turningDirection>cw</turningDirection>
-      <timeConstantUp>0.15</timeConstantUp><timeConstantDown>0.15</timeConstantDown>
+      <timeConstantUp>0.03</timeConstantUp><timeConstantDown>0.03</timeConstantDown>
       <rotorDragCoefficient>8.06428e-05</rotorDragCoefficient><rollingMomentCoefficient>1e-06</rollingMomentCoefficient>
       <maxRotVelocity>1774</maxRotVelocity><motorConstant>1.2138e-06</motorConstant><momentConstant>0.00857637</momentConstant>
       <commandSubTopic>command/motor_speed</commandSubTopic><actuator_number>1</actuator_number>
@@ -104,7 +104,7 @@
     <plugin filename="gz-sim-multicopter-motor-model-system" name="gz::sim::systems::MulticopterMotorModel">
       <jointName>rotor_2_joint</jointName><linkName>rotor_2</linkName>
       <turningDirection>ccw</turningDirection>
-      <timeConstantUp>0.15</timeConstantUp><timeConstantDown>0.15</timeConstantDown>
+      <timeConstantUp>0.03</timeConstantUp><timeConstantDown>0.03</timeConstantDown>
       <rotorDragCoefficient>8.06428e-05</rotorDragCoefficient><rollingMomentCoefficient>1e-06</rollingMomentCoefficient>
       <maxRotVelocity>1774</maxRotVelocity><motorConstant>1.2138e-06</motorConstant><momentConstant>0.00857637</momentConstant>
       <commandSubTopic>command/motor_speed</commandSubTopic><actuator_number>2</actuator_number>
@@ -113,7 +113,7 @@
     <plugin filename="gz-sim-multicopter-motor-model-system" name="gz::sim::systems::MulticopterMotorModel">
       <jointName>rotor_3_joint</jointName><linkName>rotor_3</linkName>
       <turningDirection>ccw</turningDirection>
-      <timeConstantUp>0.15</timeConstantUp><timeConstantDown>0.15</timeConstantDown>
+      <timeConstantUp>0.03</timeConstantUp><timeConstantDown>0.03</timeConstantDown>
       <rotorDragCoefficient>8.06428e-05</rotorDragCoefficient><rollingMomentCoefficient>1e-06</rollingMomentCoefficient>
       <maxRotVelocity>1774</maxRotVelocity><motorConstant>1.2138e-06</motorConstant><momentConstant>0.00857637</momentConstant>
       <commandSubTopic>command/motor_speed</commandSubTopic><actuator_number>3</actuator_number>
@@ -122,7 +122,7 @@
     <plugin filename="gz-sim-multicopter-motor-model-system" name="gz::sim::systems::MulticopterMotorModel">
       <jointName>rotor_4_joint</jointName><linkName>rotor_4</linkName>
       <turningDirection>ccw</turningDirection>
-      <timeConstantUp>0.15</timeConstantUp><timeConstantDown>0.15</timeConstantDown>
+      <timeConstantUp>0.03</timeConstantUp><timeConstantDown>0.03</timeConstantDown>
       <rotorDragCoefficient>8.06428e-05</rotorDragCoefficient><rollingMomentCoefficient>1e-06</rollingMomentCoefficient>
       <maxRotVelocity>1774</maxRotVelocity><motorConstant>1.2138e-06</motorConstant><momentConstant>0.00857637</momentConstant>
       <commandSubTopic>command/motor_speed</commandSubTopic><actuator_number>4</actuator_number>
@@ -131,7 +131,7 @@
     <plugin filename="gz-sim-multicopter-motor-model-system" name="gz::sim::systems::MulticopterMotorModel">
       <jointName>rotor_5_joint</jointName><linkName>rotor_5</linkName>
       <turningDirection>ccw</turningDirection>
-      <timeConstantUp>0.15</timeConstantUp><timeConstantDown>0.15</timeConstantDown>
+      <timeConstantUp>0.03</timeConstantUp><timeConstantDown>0.03</timeConstantDown>
       <rotorDragCoefficient>8.06428e-05</rotorDragCoefficient><rollingMomentCoefficient>1e-06</rollingMomentCoefficient>
       <maxRotVelocity>1774</maxRotVelocity><motorConstant>1.2138e-06</motorConstant><momentConstant>0.00857637</momentConstant>
       <commandSubTopic>command/motor_speed</commandSubTopic><actuator_number>5</actuator_number>
@@ -140,7 +140,7 @@
     <plugin filename="gz-sim-multicopter-motor-model-system" name="gz::sim::systems::MulticopterMotorModel">
       <jointName>rotor_6_joint</jointName><linkName>rotor_6</linkName>
       <turningDirection>cw</turningDirection>
-      <timeConstantUp>0.15</timeConstantUp><timeConstantDown>0.15</timeConstantDown>
+      <timeConstantUp>0.03</timeConstantUp><timeConstantDown>0.03</timeConstantDown>
       <rotorDragCoefficient>8.06428e-05</rotorDragCoefficient><rollingMomentCoefficient>1e-06</rollingMomentCoefficient>
       <maxRotVelocity>1774</maxRotVelocity><motorConstant>1.2138e-06</motorConstant><momentConstant>0.00857637</momentConstant>
       <commandSubTopic>command/motor_speed</commandSubTopic><actuator_number>6</actuator_number>
@@ -149,7 +149,7 @@
     <plugin filename="gz-sim-multicopter-motor-model-system" name="gz::sim::systems::MulticopterMotorModel">
       <jointName>rotor_7_joint</jointName><linkName>rotor_7</linkName>
       <turningDirection>cw</turningDirection>
-      <timeConstantUp>0.15</timeConstantUp><timeConstantDown>0.15</timeConstantDown>
+      <timeConstantUp>0.03</timeConstantUp><timeConstantDown>0.03</timeConstantDown>
       <rotorDragCoefficient>8.06428e-05</rotorDragCoefficient><rollingMomentCoefficient>1e-06</rollingMomentCoefficient>
       <maxRotVelocity>1774</maxRotVelocity><motorConstant>1.2138e-06</motorConstant><momentConstant>0.00857637</momentConstant>
       <commandSubTopic>command/motor_speed</commandSubTopic><actuator_number>7</actuator_number>
