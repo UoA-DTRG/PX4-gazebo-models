@@ -1,0 +1,199 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!-- Created: 27/09/2026 -->
+<!--
+  Interaction pole: a rigid mast rising from the floor with a flat vertical
+  panel that a vehicle can push against.
+
+  Frame convention. The model origin sits on the floor at the base of the
+  mast, and the panel's contact face lies exactly in the local x = 0 plane
+  facing -X. Placing the model at world x = 2.0 therefore puts the surface
+  the vehicle touches at x = 2.0, with no need to account for panel or mast
+  thickness. Rotate the model about Z to face the surface elsewhere.
+
+  Geometry is ESTIMATED; nothing here is measured from laboratory hardware:
+    base plate   0.35 m square, 0.02 m thick;
+    mast         0.07 m diameter, 2.03 m tall;
+    push panel   0.60 m wide, 1.20 m tall, 0.025 m thick, spanning
+                 z = 0.80 m to z = 2.00 m, centred at z = 1.40 m.
+  The panel height band brackets the usual 1.0-1.5 m hover height so the
+  vehicle meets the surface, not an edge.
+
+  The pole is an effectively immovable rigid obstacle, the usual reference
+  condition for interaction-force control. Getting a force reading out of it
+  dictates the link and joint structure, which is otherwise more elaborate than
+  the shape needs. Two gz-sim constraints drive it, both established by
+  experiment rather than from the documentation:
+
+  1. A <static> model has no joints, and a force_torque sensor must live on a
+     joint. A joint parented directly to `world` is also refused by the
+     ForceTorque system ("Parent link with name [world] ... not found"). So the
+     sensor needs a real link on each side: hence the otherwise pointless
+     anchor link, welded to the world, with the pole hanging off it.
+
+  2. A force_torque sensor on a joint does NOT report external contact loads
+     when its chain is rigidly welded to the world. Welded bodies are merged
+     into the world's infinite-mass body, which swallows the contact; the
+     sensor then reports only the child's own weight and inertia. Measured: a
+     10 kg box resting on a welded plate moved the reading not at all, staying
+     at the plate's own -19.6 N instead of -117.6 N. Making one joint in the
+     chain a stiff prismatic instead of a weld fixes it completely, and it then
+     reports loads along every axis, not just the joint axis: the same test
+     read -117.6 N exactly, and -117.6 N again with the joint axis turned
+     perpendicular to the load.
+
+  So pole_base is a prismatic joint along X, the panel normal, with a stiffness
+  of 1e6 N/m. A 50 N push deflects it 50 um, which is rigid for any practical
+  purpose and invisible on screen. To make the surface genuinely yield, drop
+  the stiffness or change pole_base to revolute.
+
+  None of this applies to the vehicle-side sensor in planar_octo_rod, whose rod
+  joint is a plain weld: the vehicle is a free body, not welded to the world,
+  and there the weld reports external contact correctly (measured -117.57 N in
+  the same test with a free base).
+
+  Two sensors, answering two different questions:
+
+    .../link/pole/sensor/push_surface_contact/contact   WHERE contact happened
+    .../joint/pole_base/sensor/reaction_force/forcetorque  HOW HARD
+
+  The contact sensor reports point positions, normals and penetration depth.
+  It does NOT report force: gz-sim leaves that message's wrench field at zero
+  (checked against a 10 kg load that must carry 98 N; every component came
+  back zero). Force comes only from the force_torque sensor, which reads a
+  10 kg reference load as exactly 98.0 N.
+
+  Both sensor systems must be loaded from PX4's server.config, and must NOT be
+  added as a <plugin> in a world SDF: any world-level plugin in an SDF replaces
+  the entire server.config plugin set, leaving a world with no physics, no
+  sensors and no spawn service.
+
+  PX4 never sees this model, so its force is logged host-side instead of into
+  the ulog: Tools/dtrg/log_interaction_force.py writes it to CSV.
+
+  Mass is ESTIMATED at 25 kg (steel base plate, steel mast, panel) with an
+  estimated diagonal inertia. Because the link is welded to the world the
+  inertia has almost no dynamic effect, but the weight does appear in the
+  sensor reading as a constant offset; the CSV logger's --tare option removes
+  it.
+-->
+<sdf version="1.9">
+  <model name="interaction_pole">
+    <static>false</static>
+
+    <!-- Weld point. No geometry; it exists only to give the force sensor a
+         parent link, since a joint parented to `world` cannot carry one. -->
+    <link name="anchor">
+      <inertial>
+        <mass>0.001</mass>
+        <inertia><ixx>1e-6</ixx><ixy>0</ixy><ixz>0</ixz><iyy>1e-6</iyy><iyz>0</iyz><izz>1e-6</izz></inertia>
+      </inertial>
+    </link>
+    <joint name="anchor_to_world" type="fixed">
+      <parent>world</parent>
+      <child>anchor</child>
+    </joint>
+
+    <link name="pole">
+      <inertial>
+        <pose>0.045 0 1.05 0 0 0</pose>
+        <mass>25.0</mass>
+        <inertia><ixx>8.4</ixx><ixy>0</ixy><ixz>0</ixz><iyy>8.4</iyy><iyz>0</iyz><izz>0.9</izz></inertia>
+      </inertial>
+
+      <!-- Floor plate. -->
+      <collision name="base_plate_collision">
+        <pose>0.060 0 0.010 0 0 0</pose>
+        <geometry><box><size>0.35 0.35 0.02</size></box></geometry>
+      </collision>
+      <visual name="base_plate_visual">
+        <pose>0.060 0 0.010 0 0 0</pose>
+        <geometry><box><size>0.35 0.35 0.02</size></box></geometry>
+        <material><ambient>0.16 0.17 0.18 1</ambient><diffuse>0.26 0.27 0.28 1</diffuse><specular>0.30 0.30 0.30 1</specular></material>
+      </visual>
+
+      <!-- Mast, behind the panel so the panel face stays at local x = 0. -->
+      <collision name="mast_collision">
+        <pose>0.060 0 1.025 0 0 0</pose>
+        <geometry><cylinder><radius>0.035</radius><length>2.01</length></cylinder></geometry>
+      </collision>
+      <visual name="mast_visual">
+        <pose>0.060 0 1.025 0 0 0</pose>
+        <geometry><cylinder><radius>0.035</radius><length>2.01</length></cylinder></geometry>
+        <material><ambient>0.20 0.21 0.22 1</ambient><diffuse>0.32 0.33 0.34 1</diffuse><specular>0.28 0.28 0.28 1</specular></material>
+      </visual>
+
+      <!-- Push panel. Contact face at local x = 0, normal pointing -X. -->
+      <collision name="push_surface_collision">
+        <pose>0.0125 0 1.400 0 0 0</pose>
+        <geometry><box><size>0.025 0.60 1.20</size></box></geometry>
+        <surface>
+          <friction><ode><mu>0.7</mu><mu2>0.7</mu2></ode></friction>
+          <contact><ode><kp>1e6</kp><kd>60</kd></ode></contact>
+        </surface>
+      </collision>
+      <visual name="push_surface_visual">
+        <pose>0.0125 0 1.400 0 0 0</pose>
+        <geometry><box><size>0.025 0.60 1.20</size></box></geometry>
+        <material><ambient>0.58 0.60 0.63 1</ambient><diffuse>0.76 0.78 0.81 1</diffuse><specular>0.20 0.20 0.20 1</specular></material>
+      </visual>
+
+      <!-- Aiming target on the panel face, at the panel centre (z = 1.4 m). -->
+      <visual name="target_ring">
+        <pose>-0.0005 0 1.400 0 1.57079632679 0</pose>
+        <geometry><cylinder><radius>0.13</radius><length>0.001</length></cylinder></geometry>
+        <material><ambient>0.55 0.18 0.05 1</ambient><diffuse>0.92 0.34 0.08 1</diffuse></material>
+      </visual>
+      <visual name="target_centre">
+        <pose>-0.0011 0 1.400 0 1.57079632679 0</pose>
+        <geometry><cylinder><radius>0.06</radius><length>0.001</length></cylinder></geometry>
+        <material><ambient>0.20 0.21 0.23 1</ambient><diffuse>0.30 0.31 0.34 1</diffuse></material>
+      </visual>
+
+      <!-- Panel edge banding, so the usable surface is visible from a distance. -->
+      <visual name="panel_edge_positive_y"><pose>0.0005 0.285 1.400 0 0 0</pose><geometry><box><size>0.026 0.03 1.20</size></box></geometry><material><ambient>0.55 0.18 0.05 1</ambient><diffuse>0.92 0.34 0.08 1</diffuse></material></visual>
+      <visual name="panel_edge_negative_y"><pose>0.0005 -0.285 1.400 0 0 0</pose><geometry><box><size>0.026 0.03 1.20</size></box></geometry><material><ambient>0.55 0.18 0.05 1</ambient><diffuse>0.92 0.34 0.08 1</diffuse></material></visual>
+      <visual name="panel_edge_top"><pose>0.0005 0 1.985 0 0 0</pose><geometry><box><size>0.026 0.60 0.03</size></box></geometry><material><ambient>0.55 0.18 0.05 1</ambient><diffuse>0.92 0.34 0.08 1</diffuse></material></visual>
+      <visual name="panel_edge_bottom"><pose>0.0005 0 0.815 0 0 0</pose><geometry><box><size>0.026 0.60 0.03</size></box></geometry><material><ambient>0.55 0.18 0.05 1</ambient><diffuse>0.92 0.34 0.08 1</diffuse></material></visual>
+
+      <sensor name="push_surface_contact" type="contact">
+        <always_on>1</always_on>
+        <update_rate>100</update_rate>
+        <contact><collision>push_surface_collision</collision></contact>
+      </sensor>
+    </link>
+
+    <!--
+      Instrumented mount. Stiff rather than welded, for the reason given in the
+      header. The sensor measures the wrench the pole delivers into its anchor,
+      and so into the floor, expressed in the pole frame, which is world
+      aligned when the model is spawned at yaw 0.
+
+      Sign, verified in simulation: the pole's own weight appears as a constant
+      force z of -245.0 N, exactly 25 kg x 9.8, with a torque y of 11.025 N m
+      from the 45 mm centre-of-mass offset. A vehicle pushing the panel in +X
+      adds a POSITIVE force x. Tare the logger to drop the standing offset and
+      read the push on its own.
+    -->
+    <joint name="pole_base" type="prismatic">
+      <parent>anchor</parent>
+      <child>pole</child>
+      <axis>
+        <xyz>1 0 0</xyz>
+        <limit><lower>-0.005</lower><upper>0.005</upper></limit>
+        <dynamics>
+          <spring_stiffness>1000000</spring_stiffness>
+          <spring_reference>0</spring_reference>
+          <damping>5000</damping>
+        </dynamics>
+      </axis>
+      <sensor name="reaction_force" type="force_torque">
+        <always_on>1</always_on>
+        <update_rate>250</update_rate>
+        <force_torque>
+          <frame>child</frame>
+          <measure_direction>child_to_parent</measure_direction>
+        </force_torque>
+      </sensor>
+    </joint>
+  </model>
+</sdf>
