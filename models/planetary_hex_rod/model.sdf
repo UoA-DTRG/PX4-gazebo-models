@@ -26,9 +26,9 @@
 
   The rod is mounted at base_link z = 0, which is the height of the airframe
   centre of mass, so an axial contact force produces no pitching moment. Mass
-  is ASSUMED at 0.030 kg (carbon tube plus tip and mount), modelled as a
-  uniform rod, 1% of the 3.0 kg airframe. Uncompensated it would move the
-  combined centre of mass 3.8 mm forward; the include below moves the base
+  is ASSUMED at 0.030 kg: a 0.025 kg uniform shaft (carbon tube and mount)
+  and a 0.005 kg tip (ball and load cell), 1% of the 3.0 kg airframe.
+  Uncompensated it would move the combined centre of mass 4.1 mm forward; the include below moves the base
   CoM aft instead, so the vehicle CoM stays at the body origin. The
   hover-thrust estimator takes up the extra mass and the 12018 airframe gains
   are left unchanged.
@@ -42,25 +42,21 @@
            added. Written by Tools/dtrg/vehicle_properties/planetary_hex_properties.py,
            which keeps it in step with the vehicle's mass and rotor links. -->
       <experimental:params>
-        <link element_id="base_link" action="modify"><inertial><pose>-0.003983 0.000000 -0.000529 0 0 0</pose></inertial></link>
+        <link element_id="base_link" action="modify"><inertial><pose>-0.004286 0.000000 -0.000529 0 0 0</pose></inertial></link>
       </experimental:params>
     </include>
 
-    <!-- Local +Z runs along the rod, i.e. along body +X. -->
+    <!-- Rod shaft, welded to the airframe. Local +Z runs along the rod, i.e.
+         along body +X. 0.025 kg of the assumed 0.030 kg rod. -->
     <link name="interaction_rod">
       <pose relative_to="base_link">0.384000 0 0 0 1.57079632679 0</pose>
       <inertial>
-        <mass>0.030</mass>
-        <inertia><ixx>3.07e-4</ixx><ixy>0</ixy><ixz>0</ixz><iyy>3.07e-4</iyy><iyz>0</iyz><izz>1.0e-6</izz></inertia>
+        <mass>0.025</mass>
+        <inertia><ixx>2.55e-4</ixx><ixy>0</ixy><ixz>0</ixz><iyy>2.55e-4</iyy><iyz>0</iyz><izz>8.0e-7</izz></inertia>
       </inertial>
       <visual name="rod_shaft">
         <geometry><cylinder><radius>0.008</radius><length>0.35</length></cylinder></geometry>
         <material><ambient>0.09 0.09 0.10 1</ambient><diffuse>0.17 0.17 0.19 1</diffuse><specular>0.35 0.35 0.35 1</specular></material>
-      </visual>
-      <visual name="rod_tip">
-        <pose>0 0 0.175 0 0 0</pose>
-        <geometry><sphere><radius>0.018</radius></sphere></geometry>
-        <material><ambient>0.55 0.18 0.05 1</ambient><diffuse>0.92 0.34 0.08 1</diffuse><specular>0.40 0.40 0.40 1</specular></material>
       </visual>
       <visual name="rod_root_collar">
         <pose>0 0 -0.170 0 0 0</pose>
@@ -70,16 +66,37 @@
       <collision name="rod_shaft_collision">
         <geometry><cylinder><radius>0.008</radius><length>0.35</length></cylinder></geometry>
       </collision>
+    </link>
+    <joint name="interaction_rod_mount_joint" type="fixed">
+      <parent>base_link</parent>
+      <child>interaction_rod</child>
+    </joint>
+
+    <!-- Rod tip: the contact ball and the load cell behind it. Body-aligned
+         (no rotation), so its frame is body FLU like base_link. ASSUMED
+         0.005 kg, the rest of the rod's 0.030 kg. -->
+    <link name="interaction_rod_tip">
+      <pose relative_to="base_link">0.559000 0 0 0 0 0</pose>
+      <inertial>
+        <mass>0.005</mass>
+        <inertia><ixx>6.5e-7</ixx><ixy>0</ixy><ixz>0</ixz><iyy>6.5e-7</iyy><iyz>0</iyz><izz>6.5e-7</izz></inertia>
+      </inertial>
+      <visual name="rod_tip">
+        <geometry><sphere><radius>0.018</radius></sphere></geometry>
+        <material><ambient>0.55 0.18 0.05 1</ambient><diffuse>0.92 0.34 0.08 1</diffuse><specular>0.40 0.40 0.40 1</specular></material>
+      </visual>
       <collision name="rod_tip_collision">
-        <pose>0 0 0.175 0 0 0</pose>
         <geometry><sphere><radius>0.018</radius></sphere></geometry>
         <surface>
           <friction><ode><mu>0.7</mu><mu2>0.7</mu2></ode></friction>
           <contact><ode><kp>1e6</kp><kd>60</kd></ode></contact>
         </surface>
       </collision>
-      <!-- Contact detection for the tip; see planar_octo_rod. Reports where
-           contact happened, not how hard. -->
+      <!-- Contact detection for the tip; needs gz-sim-contact-system, which
+           PX4's server.config loads for every world. This reports whether and
+           where contact happened, not how hard: gz-sim leaves the contact
+           message's wrench field at zero. The force comes from the
+           force_torque sensor on interaction_rod_joint below. -->
       <sensor name="rod_tip_contact" type="contact">
         <always_on>1</always_on>
         <update_rate>250</update_rate>
@@ -87,24 +104,32 @@
       </sensor>
     </link>
     <!--
-      The rod mount, instrumented exactly as on planar_octo_rod. The joint and
-      sensor names are what PX4's gz_bridge subscribes to:
+      The load cell, at the TIP: the joint between the tip and the shaft. The
+      force_torque sensor measures the wrench the tip transmits into the
+      shaft, expressed in the child (interaction_rod_tip) frame, which is body
+      FLU, with the torque taken about the tip centre. PX4's gz_bridge
+      subscribes to
 
         /world/<world>/model/<model>/joint/interaction_rod_joint/sensor/interaction_force/forcetorque
 
-      It converts body FLU to body FRD and publishes the interaction_wrench
-      uORB topic, which the logger records into the ulog. Pressing forward
-      gives a NEGATIVE force x in FRD, and the reading includes the rod's own
-      weight and inertial reaction (see planar_octo_rod).
+      converts FLU to body FRD and publishes it as the interaction_wrench uORB
+      topic, which the logger records into the ulog. Needs
+      gz-sim-forcetorque-system, which PX4's server.config loads.
+
+      Sign: pressing the tip forward into a surface gives a NEGATIVE force x
+      in FRD; the reported quantity is what the surface feeds back into the
+      rod. Only the tip's own 0.005 kg (weight and inertial reaction) is
+      included, not the shaft's, so the reading is close to the contact force
+      even while the vehicle manoeuvres.
     -->
     <joint name="interaction_rod_joint" type="fixed">
-      <parent>base_link</parent>
-      <child>interaction_rod</child>
+      <parent>interaction_rod</parent>
+      <child>interaction_rod_tip</child>
       <sensor name="interaction_force" type="force_torque">
         <always_on>1</always_on>
         <update_rate>250</update_rate>
         <force_torque>
-          <frame>parent</frame>
+          <frame>child</frame>
           <measure_direction>child_to_parent</measure_direction>
         </force_torque>
       </sensor>
