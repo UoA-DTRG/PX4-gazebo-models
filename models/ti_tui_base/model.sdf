@@ -2,7 +2,7 @@
 <!-- Author: Ishaq Hafez <ishaq.hafez@auckland.ac.nz>; Created: 10/09/2026 -->
 <sdf version="1.9"><model name="ti_tui_base"><self_collide>false</self_collide><static>false</static>
   <link name="base_link">
-    <inertial><mass>1.172</mass><inertia><ixx>0.00965</ixx><ixy>0</ixy><ixz>0</ixz><iyy>0.00965</iyy><iyz>0</iyz><izz>0.01737</izz></inertia></inertial><gravity>true</gravity>
+    <inertial><pose>0.000000 0.000000 0.000005 0 0 0</pose><mass>1.172</mass><inertia><ixx>0.00965</ixx><ixy>0</ixy><ixz>0</ixz><iyy>0.00965</iyy><iyz>0</iyz><izz>0.01737</izz></inertia></inertial><gravity>true</gravity>
     <visual name="cad_stationary_assembly"><geometry><mesh><uri>model://ti_tui_base/meshes/stationary_assembly.stl</uri></mesh></geometry><material><ambient>0.10 0.105 0.11 1</ambient><diffuse>0.19 0.20 0.21 1</diffuse><specular>0.32 0.32 0.32 1</specular></material></visual>
     <visual name="front_marker"><pose>0.070 0 0.050 0 0 0</pose><geometry><box><size>0.018 0.020 0.006</size></box></geometry><material><ambient>0.45 0.02 0.015 1</ambient><diffuse>0.85 0.04 0.025 1</diffuse></material></visual>
     <collision name="body_collision"><pose>0 0 -0.005 0 0 0</pose><geometry><box><size>0.145 0.100 0.080</size></box></geometry></collision>

@@ -26,11 +26,13 @@
   rigid mast on the mat carrying a vertical push panel for the vehicle to
   press against. Keep the two worlds in step when either is edited; the only
   intended differences are the world name, this note, the starting camera
-  pose, and the interaction_pole include near the end of the file. Fly
-  planar_octo_rod here, not planar_octo, so that the vehicle has a rod to
-  make contact with:
+  pose, and the interaction_pole include near the end of the file. Fly a
+  rod-carrying model here (planar_octo_rod, planetary_hex_rod or ti_tui_rod),
+  not the plain vehicle, so that it has a rod to make contact with:
 
     make px4_sitl gz_planar_octo_rod_mocap_interaction
+    make px4_sitl gz_planetary_hex_rod_mocap_interaction
+    make px4_sitl gz_ti_tui_rod_mocap_interaction
 -->
 <sdf version="1.9">
   <world name="mocap_interaction">
@@ -590,8 +592,9 @@
       the mast sits behind it, out of the approach path.
 
       planar_octo_rod reaches 0.6155 m ahead of its body centre, so contact
-      occurs with the vehicle centred near x = 1.38 m: inside the 6 m mat and
-      well inside the 8 m safety enclosure. The panel spans z = 0.80 m to
+      occurs with the vehicle centred near x = 1.38 m (planetary_hex_rod:
+      0.577 m, x = 1.42 m; ti_tui_rod: 0.4405 m, x = 1.56 m): inside the 6 m
+      mat and well inside the 8 m safety enclosure. The panel spans z = 0.80 m to
       z = 2.00 m, so a 1.0-1.5 m hover meets the surface rather than an edge.
       Both the panel and the rod tip carry contact sensors; see
       Tools/simulation/gz/models/interaction_pole/model.sdf for the topic.
@@ -605,9 +608,9 @@
     <!--
       No vehicle is instantiated here. PX4 spawns the vehicle into this world
       (PX4_SIM_MODEL=gz_planar_octo_rod PX4_GZ_WORLD=mocap_interaction). No
-      PX4_GZ_MODEL_POSE is needed: the mat surface is z = 0 and the
-      planar_octo model pose already lifts its origin 0.183 m above the
-      landing-leg contact plane.
+      PX4_GZ_MODEL_POSE is needed: the mat surface is z = 0 and each vehicle
+      model pose already lifts its origin above the landing-gear contact
+      plane (planar_octo 0.183 m, planetary_hex 0.1333 m, ti_tui 0.102 m).
     -->
   </world>
 </sdf>

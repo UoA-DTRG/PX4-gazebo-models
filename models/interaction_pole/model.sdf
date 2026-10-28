@@ -46,10 +46,11 @@
   purpose and invisible on screen. To make the surface genuinely yield, drop
   the stiffness or change pole_base to revolute.
 
-  None of this applies to the vehicle-side sensor in planar_octo_rod, whose rod
-  joint is a plain weld: the vehicle is a free body, not welded to the world,
-  and there the weld reports external contact correctly (measured -117.57 N in
-  the same test with a free base).
+  None of this applies to the vehicle-side sensor in planar_octo_rod (or
+  planetary_hex_rod, ti_tui_rod), whose rod joint is a plain weld: the
+  vehicle is a free body, not welded to the world, and there the weld
+  reports external contact correctly (measured -117.57 N in the same test
+  with a free base).
 
   Two sensors, answering two different questions:
 

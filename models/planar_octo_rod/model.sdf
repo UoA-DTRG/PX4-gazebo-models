@@ -20,13 +20,24 @@
   The rod is mounted at base_link z = 0, which is the height of the airframe
   centre of mass, so an axial contact force produces no pitching moment. Mass
   is ASSUMED at 0.030 kg (carbon tube plus tip and mount), modelled as a
-  uniform rod. That is 2% of the 1.460 kg airframe and moves the combined
-  centre of mass 8.5 mm forward, which the hover-thrust estimator and the
-  position controller absorb; the 12013 airframe gains are left unchanged.
+  uniform rod, 2% of the 1.5 kg airframe. Uncompensated it would move the
+  combined centre of mass 8.3 mm forward; the include below moves the base
+  CoM aft instead, so the vehicle CoM stays at the body origin. The
+  hover-thrust estimator takes up the extra mass and the 12013 airframe gains
+  are left unchanged.
 -->
 <sdf version="1.9">
   <model name="planar_octo_rod">
-    <include merge="true"><uri>model://planar_octo</uri></include>
+    <include merge="true"><uri>model://planar_octo</uri>
+      <!-- Rebalance: the base CoM moves aft so that base + rotors + rod keep
+           the CoM at the body origin, the point the CA_ROTOR positions are
+           measured from. Stands in for moving the battery aft; no mass is
+           added. Written by Tools/dtrg/vehicle_properties/planar_octo_properties.py,
+           which keeps it in step with the vehicle's mass and rotor links. -->
+      <experimental:params>
+        <link element_id="base_link" action="modify"><inertial><pose>-0.008682 0.000000 -0.001437 0 0 0</pose></inertial></link>
+      </experimental:params>
+    </include>
 
     <!-- Local +Z runs along the rod, i.e. along body +X. -->
     <link name="interaction_rod">

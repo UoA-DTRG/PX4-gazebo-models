@@ -4,77 +4,77 @@
     <pose>0 0 0.1333 0 0 0</pose>
     <include merge="true"><uri>model://planetary_hex_base</uri></include>
     <link name="rotor_0">
-      <pose>0.300289063 -0.008798625 0.019007245 0.820141424 0.018713217 0.000000000</pose>
+      <pose>0.264457270 0.142524699 0.019007245 0.820141424 0.018713217 0.523598776</pose>
       <inertial><mass>0.008</mass><inertia><ixx>5.7e-06</ixx><iyy>5.7e-06</iyy><izz>1.13e-05</izz></inertia></inertial>
       <visual name="cad_propeller"><pose>0 0 0 -0.820228763 -0.012764220 0.013684639</pose><geometry><mesh><uri>model://planetary_hex/meshes/rotor_0.stl</uri></mesh></geometry><material><ambient>0.12 0.12 0.13 0.7</ambient><diffuse>0.22 0.22 0.24 0.7</diffuse><specular>0.30 0.30 0.30 1</specular></material></visual>
       <visual name="spin_direction_cap"><pose>0 0 0.006 0 0 0</pose><geometry><cylinder><radius>0.008</radius><length>0.004</length></cylinder></geometry><material><ambient>0.52 0.16 0.02 1</ambient><diffuse>0.95 0.30 0.04 1</diffuse><specular>0.35 0.35 0.35 1</specular></material></visual>
     </link>
     <joint name="rotor_0_joint" type="revolute">
       <parent>base_link</parent><child>rotor_0</child>
-      <axis><xyz expressed_in="__model__">0.012763873 -0.731242305 0.681998369</xyz><limit><lower>-1e16</lower><upper>1e16</upper></limit></axis>
+      <axis><xyz expressed_in="__model__">0.376674991 -0.626892476 0.681998369</xyz><limit><lower>-1e16</lower><upper>1e16</upper></limit></axis>
     </joint>
     <link name="rotor_1">
-      <pose>0.142524699 0.264457270 0.019007245 -0.386204285 -0.743321824 0.000000000</pose>
+      <pose>-0.008798625 0.300289064 0.019007245 -0.386204285 -0.743321824 0.523598776</pose>
       <inertial><mass>0.008</mass><inertia><ixx>5.7e-06</ixx><iyy>5.7e-06</iyy><izz>1.13e-05</izz></inertia></inertial>
       <visual name="cad_propeller"><pose>0 0 0 0.504615537 0.677558223 0.333320732</pose><geometry><mesh><uri>model://planetary_hex/meshes/rotor_1.stl</uri></mesh></geometry><material><ambient>0.12 0.12 0.13 0.7</ambient><diffuse>0.22 0.22 0.24 0.7</diffuse><specular>0.30 0.30 0.30 1</specular></material></visual>
       <visual name="spin_direction_cap"><pose>0 0 0.006 0 0 0</pose><geometry><cylinder><radius>0.008</radius><length>0.004</length></cylinder></geometry><material><ambient>0.03 0.18 0.34 1</ambient><diffuse>0.05 0.36 0.72 1</diffuse><specular>0.35 0.35 0.35 1</specular></material></visual>
     </link>
     <joint name="rotor_1_joint" type="revolute">
       <parent>base_link</parent><child>rotor_1</child>
-      <axis><xyz expressed_in="__model__">-0.626892492 0.376674994 0.681998352</xyz><limit><lower>-1e16</lower><upper>1e16</upper></limit></axis>
+      <axis><xyz expressed_in="__model__">-0.731242321 0.012763868 0.681998352</xyz><limit><lower>-1e16</lower><upper>1e16</upper></limit></axis>
     </joint>
     <link name="rotor_2">
-      <pose>-0.142524699 0.264457270 0.019007245 -0.386204290 0.743321808 0.000000000</pose>
+      <pose>-0.255658645 0.157764365 0.019007245 -0.386204290 0.743321808 0.523598776</pose>
       <inertial><mass>0.008</mass><inertia><ixx>5.7e-06</ixx><iyy>5.7e-06</iyy><izz>1.13e-05</izz></inertia></inertial>
       <visual name="cad_propeller"><pose>0 0 0 0.504615536 -0.677558208 -0.333320725</pose><geometry><mesh><uri>model://planetary_hex/meshes/rotor_2.stl</uri></mesh></geometry><material><ambient>0.12 0.12 0.13 0.7</ambient><diffuse>0.22 0.22 0.24 0.7</diffuse><specular>0.30 0.30 0.30 1</specular></material></visual>
       <visual name="spin_direction_cap"><pose>0 0 0.006 0 0 0</pose><geometry><cylinder><radius>0.008</radius><length>0.004</length></cylinder></geometry><material><ambient>0.52 0.16 0.02 1</ambient><diffuse>0.95 0.30 0.04 1</diffuse><specular>0.35 0.35 0.35 1</specular></material></visual>
     </link>
     <joint name="rotor_2_joint" type="revolute">
       <parent>base_link</parent><child>rotor_2</child>
-      <axis><xyz expressed_in="__model__">0.626892480 0.376674998 0.681998361</xyz><limit><lower>-1e16</lower><upper>1e16</upper></limit></axis>
+      <axis><xyz expressed_in="__model__">0.354567314 0.639656357 0.681998361</xyz><limit><lower>-1e16</lower><upper>1e16</upper></limit></axis>
     </joint>
     <link name="rotor_3">
-      <pose>-0.300289063 -0.008798625 0.019007245 0.820141459 -0.018713221 0.000000000</pose>
+      <pose>-0.255658645 -0.157764364 0.019007245 0.820141459 -0.018713221 0.523598776</pose>
       <inertial><mass>0.008</mass><inertia><ixx>5.7e-06</ixx><iyy>5.7e-06</iyy><izz>1.13e-05</izz></inertia></inertial>
       <visual name="cad_propeller"><pose>0 0 0 -0.820228798 0.012764222 -0.013684642</pose><geometry><mesh><uri>model://planetary_hex/meshes/rotor_3.stl</uri></mesh></geometry><material><ambient>0.12 0.12 0.13 0.7</ambient><diffuse>0.22 0.22 0.24 0.7</diffuse><specular>0.30 0.30 0.30 1</specular></material></visual>
       <visual name="spin_direction_cap"><pose>0 0 0.006 0 0 0</pose><geometry><cylinder><radius>0.008</radius><length>0.004</length></cylinder></geometry><material><ambient>0.03 0.18 0.34 1</ambient><diffuse>0.05 0.36 0.72 1</diffuse><specular>0.35 0.35 0.35 1</specular></material></visual>
     </link>
     <joint name="rotor_3_joint" type="revolute">
       <parent>base_link</parent><child>rotor_3</child>
-      <axis><xyz expressed_in="__model__">-0.012763876 -0.731242329 0.681998343</xyz><limit><lower>-1e16</lower><upper>1e16</upper></limit></axis>
+      <axis><xyz expressed_in="__model__">0.354567324 -0.639656371 0.681998343</xyz><limit><lower>-1e16</lower><upper>1e16</upper></limit></axis>
     </joint>
     <link name="rotor_4">
-      <pose>-0.157764364 -0.255658645 0.019007245 -0.362451244 -0.753371981 0.000000000</pose>
+      <pose>-0.008798625 -0.300289063 0.019007245 -0.362451244 -0.753371981 0.523598776</pose>
       <inertial><mass>0.008</mass><inertia><ixx>5.7e-06</ixx><iyy>5.7e-06</iyy><izz>1.13e-05</izz></inertia></inertial>
       <visual name="cad_propeller"><pose>0 0 0 0.479436331 0.694051107 0.321048891</pose><geometry><mesh><uri>model://planetary_hex/meshes/rotor_4.stl</uri></mesh></geometry><material><ambient>0.12 0.12 0.13 0.7</ambient><diffuse>0.22 0.22 0.24 0.7</diffuse><specular>0.30 0.30 0.30 1</specular></material></visual>
       <visual name="spin_direction_cap"><pose>0 0 0.006 0 0 0</pose><geometry><cylinder><radius>0.008</radius><length>0.004</length></cylinder></geometry><material><ambient>0.52 0.16 0.02 1</ambient><diffuse>0.95 0.30 0.04 1</diffuse><specular>0.35 0.35 0.35 1</specular></material></visual>
     </link>
     <joint name="rotor_4_joint" type="revolute">
       <parent>base_link</parent><child>rotor_4</child>
-      <axis><xyz expressed_in="__model__">-0.639656351 0.354567284 0.681998383</xyz><limit><lower>-1e16</lower><upper>1e16</upper></limit></axis>
+      <axis><xyz expressed_in="__model__">-0.731242292 -0.012763900 0.681998383</xyz><limit><lower>-1e16</lower><upper>1e16</upper></limit></axis>
     </joint>
     <link name="rotor_5">
-      <pose>0.157764364 -0.255658645 0.019007245 -0.362451318 0.753372003 0.000000000</pose>
+      <pose>0.264457270 -0.142524699 0.019007245 -0.362451318 0.753372003 0.523598776</pose>
       <inertial><mass>0.008</mass><inertia><ixx>5.7e-06</ixx><iyy>5.7e-06</iyy><izz>1.13e-05</izz></inertia></inertial>
       <visual name="cad_propeller"><pose>0 0 0 0.479436431 -0.694051103 -0.321048962</pose><geometry><mesh><uri>model://planetary_hex/meshes/rotor_5.stl</uri></mesh></geometry><material><ambient>0.12 0.12 0.13 0.7</ambient><diffuse>0.22 0.22 0.24 0.7</diffuse><specular>0.30 0.30 0.30 1</specular></material></visual>
       <visual name="spin_direction_cap"><pose>0 0 0.006 0 0 0</pose><geometry><cylinder><radius>0.008</radius><length>0.004</length></cylinder></geometry><material><ambient>0.03 0.18 0.34 1</ambient><diffuse>0.05 0.36 0.72 1</diffuse><specular>0.35 0.35 0.35 1</specular></material></visual>
     </link>
     <joint name="rotor_5_joint" type="revolute">
       <parent>base_link</parent><child>rotor_5</child>
-      <axis><xyz expressed_in="__model__">0.639656347 0.354567353 0.681998350</xyz><limit><lower>-1e16</lower><upper>1e16</upper></limit></axis>
+      <axis><xyz expressed_in="__model__">0.376674970 0.626892509 0.681998350</xyz><limit><lower>-1e16</lower><upper>1e16</upper></limit></axis>
     </joint>
     <link name="rotor_6">
-      <pose>0.000000000 -0.000000000 0.082561766 0.000000000 -0.000000000 0.000000000</pose>
+      <pose>0.000000000 0.000000000 0.082561766 0.000000000 0.000000000 0.523598776</pose>
       <inertial><mass>0.03</mass><inertia><ixx>0.00014</ixx><iyy>0.00014</iyy><izz>0.00027</izz></inertia></inertial>
       <visual name="cad_propeller"><pose>0 0 0 -0.000000000 0.000000000 -0.000000000</pose><geometry><mesh><uri>model://planetary_hex/meshes/rotor_6.stl</uri></mesh></geometry><material><ambient>0.12 0.12 0.13 0.7</ambient><diffuse>0.22 0.22 0.24 0.7</diffuse><specular>0.30 0.30 0.30 1</specular></material></visual>
       <visual name="spin_direction_cap"><pose>0 0 0.006 0 0 0</pose><geometry><cylinder><radius>0.008</radius><length>0.004</length></cylinder></geometry><material><ambient>0.03 0.18 0.34 1</ambient><diffuse>0.05 0.36 0.72 1</diffuse><specular>0.35 0.35 0.35 1</specular></material></visual>
     </link>
     <joint name="rotor_6_joint" type="revolute">
       <parent>base_link</parent><child>rotor_6</child>
-      <axis><xyz expressed_in="__model__">-0.000000000 -0.000000000 1.000000000</xyz><limit><lower>-1e16</lower><upper>1e16</upper></limit></axis>
+      <axis><xyz expressed_in="__model__">0.000000000 0.000000000 1.000000000</xyz><limit><lower>-1e16</lower><upper>1e16</upper></limit></axis>
     </joint>
     <link name="rotor_7">
-      <pose>0.000000000 -0.000000000 -0.061938234 0.000000000 0.000000000 0.000000000</pose>
+      <pose>0.000000000 0.000000000 -0.061938234 0.000000000 0.000000000 0.523598776</pose>
       <inertial><mass>0.03</mass><inertia><ixx>0.00014</ixx><iyy>0.00014</iyy><izz>0.00027</izz></inertia></inertial>
       <visual name="cad_propeller"><pose>0 0 0 0.000000000 0.000000000 0.000000000</pose><geometry><mesh><uri>model://planetary_hex/meshes/rotor_7.stl</uri></mesh></geometry><material><ambient>0.12 0.12 0.13 0.7</ambient><diffuse>0.22 0.22 0.24 0.7</diffuse><specular>0.30 0.30 0.30 1</specular></material></visual>
       <visual name="spin_direction_cap"><pose>0 0 0.006 0 0 0</pose><geometry><cylinder><radius>0.008</radius><length>0.004</length></cylinder></geometry><material><ambient>0.52 0.16 0.02 1</ambient><diffuse>0.95 0.30 0.04 1</diffuse><specular>0.35 0.35 0.35 1</specular></material></visual>

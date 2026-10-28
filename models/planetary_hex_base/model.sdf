@@ -3,16 +3,16 @@
      Mass is ASSUMED (3.0 kg total); inertia is the uniform-density stationary-CAD estimate scaled to the base mass. -->
 <sdf version="1.9"><model name="planetary_hex_base"><self_collide>false</self_collide><static>false</static>
   <link name="base_link">
-    <inertial><mass>2.892</mass><inertia><ixx>0.057325</ixx><ixy>-0.000135</ixy><ixz>-0.000016</ixz><iyy>0.057334</iyy><iyz>-0.000021</iyz><izz>0.106615</izz></inertia></inertial><gravity>true</gravity>
-    <visual name="cad_stationary_assembly"><geometry><mesh><uri>model://planetary_hex_base/meshes/stationary_assembly.stl</uri></mesh></geometry><material><ambient>0.10 0.105 0.11 1</ambient><diffuse>0.19 0.20 0.21 1</diffuse><specular>0.32 0.32 0.32 1</specular></material></visual>
+    <inertial><pose>0.000000 0.000000 -0.000529 0 0 0</pose><mass>2.892</mass><inertia><ixx>0.057444</ixx><ixy>-0.000071</ixy><ixz>-0.000003</ixz><iyy>0.057215</iyy><iyz>-0.000026</iyz><izz>0.106615</izz></inertia></inertial><gravity>true</gravity>
+    <visual name="cad_stationary_assembly"><pose>0 0 0 0 0 0.523598776</pose><geometry><mesh><uri>model://planetary_hex_base/meshes/stationary_assembly.stl</uri></mesh></geometry><material><ambient>0.10 0.105 0.11 1</ambient><diffuse>0.19 0.20 0.21 1</diffuse><specular>0.32 0.32 0.32 1</specular></material></visual>
     <visual name="front_marker"><pose>0.120 0 0.0358 0 0 0</pose><geometry><box><size>0.030 0.020 0.006</size></box></geometry><material><ambient>0.45 0.02 0.015 1</ambient><diffuse>0.85 0.04 0.025 1</diffuse></material></visual>
     <collision name="ring_collision"><pose>0 0 0.0103 0 0 0</pose><geometry><cylinder><radius>0.2090</radius><length>0.0430</length></cylinder></geometry></collision>
-    <collision name="foot_0_collision"><pose>-0.1388 0.2403 -0.1203 0 0 0</pose><geometry><sphere><radius>0.01</radius></sphere></geometry></collision>
-    <collision name="foot_1_collision"><pose>-0.2775 0.0000 -0.1203 0 0 0</pose><geometry><sphere><radius>0.01</radius></sphere></geometry></collision>
-    <collision name="foot_2_collision"><pose>0.1388 -0.2403 -0.1203 0 0 0</pose><geometry><sphere><radius>0.01</radius></sphere></geometry></collision>
-    <collision name="foot_3_collision"><pose>-0.1388 -0.2403 -0.1203 0 0 0</pose><geometry><sphere><radius>0.01</radius></sphere></geometry></collision>
-    <collision name="foot_4_collision"><pose>0.1388 0.2403 -0.1203 0 0 0</pose><geometry><sphere><radius>0.01</radius></sphere></geometry></collision>
-    <collision name="foot_5_collision"><pose>0.2775 0.0000 -0.1203 0 0 0</pose><geometry><sphere><radius>0.01</radius></sphere></geometry></collision>
+    <collision name="foot_0_collision"><pose>-0.2404 0.1387 -0.1203 0 0 0</pose><geometry><sphere><radius>0.01</radius></sphere></geometry></collision>
+    <collision name="foot_1_collision"><pose>-0.2403 -0.1387 -0.1203 0 0 0</pose><geometry><sphere><radius>0.01</radius></sphere></geometry></collision>
+    <collision name="foot_2_collision"><pose>0.2404 -0.1387 -0.1203 0 0 0</pose><geometry><sphere><radius>0.01</radius></sphere></geometry></collision>
+    <collision name="foot_3_collision"><pose>-0.0001 -0.2775 -0.1203 0 0 0</pose><geometry><sphere><radius>0.01</radius></sphere></geometry></collision>
+    <collision name="foot_4_collision"><pose>0.0001 0.2775 -0.1203 0 0 0</pose><geometry><sphere><radius>0.01</radius></sphere></geometry></collision>
+    <collision name="foot_5_collision"><pose>0.2403 0.1387 -0.1203 0 0 0</pose><geometry><sphere><radius>0.01</radius></sphere></geometry></collision>
     <sensor name="air_pressure_sensor" type="air_pressure"><always_on>1</always_on><update_rate>50</update_rate><air_pressure><pressure><noise type="gaussian"><mean>0</mean><stddev>3</stddev></noise></pressure></air_pressure></sensor>
     <sensor name="magnetometer_sensor" type="magnetometer"><always_on>1</always_on><update_rate>100</update_rate><magnetometer><x><noise type="gaussian"><stddev>0.0001</stddev></noise></x><y><noise type="gaussian"><stddev>0.0001</stddev></noise></y><z><noise type="gaussian"><stddev>0.0001</stddev></noise></z></magnetometer></sensor>
     <sensor name="imu_sensor" type="imu"><always_on>1</always_on><update_rate>250</update_rate><imu><angular_velocity><x><noise type="gaussian"><mean>0</mean><stddev>0.0008726646</stddev></noise></x><y><noise type="gaussian"><mean>0</mean><stddev>0.0008726646</stddev></noise></y><z><noise type="gaussian"><mean>0</mean><stddev>0.0008726646</stddev></noise></z></angular_velocity><linear_acceleration><x><noise type="gaussian"><mean>0</mean><stddev>0.00637</stddev></noise></x><y><noise type="gaussian"><mean>0</mean><stddev>0.00637</stddev></noise></y><z><noise type="gaussian"><mean>0</mean><stddev>0.00686</stddev></noise></z></linear_acceleration></imu></sensor>
