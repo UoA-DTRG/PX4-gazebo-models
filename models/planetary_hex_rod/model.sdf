@@ -112,7 +112,7 @@
 
         /world/<world>/model/<model>/joint/interaction_rod_joint/sensor/interaction_force/forcetorque
 
-      converts FLU to body FRD and publishes it as the interaction_wrench uORB
+      converts FLU to body FRD and publishes it as the six_axis_load_cell uORB
       topic, which the logger records into the ulog. Needs
       gz-sim-forcetorque-system, which PX4's server.config loads.
 
